@@ -1,0 +1,13 @@
+{
+  "name": "Cloud",
+  "raw_name": "cloud",
+  "routes": [
+    {
+      "url": "/cloud",
+      "name": "Cloud",
+      "default": "true",
+      "raw": "cloud",
+      "icon": "fa fa-cloud"
+    }
+  ]
+}
