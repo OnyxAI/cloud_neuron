@@ -8,10 +8,10 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     writeToDisk: true,
-    port: 3001,
+    port: 3002,
   },
   output: {
-    publicPath: 'api/neurons/serve/cloud/',
+    publicPath: '/api/neurons/serve/cloud/',
   },
   optimization: {
     minimize: false,

@@ -8,6 +8,12 @@
       "default": "true",
       "raw": "cloud",
       "icon": "fa fa-cloud"
+    },
+    {
+      "url": "/cloud/:uid",
+      "name": "Cloud",
+      "raw": "cloud",
+      "icon": "fa fa-cloud"
     }
   ]
 }

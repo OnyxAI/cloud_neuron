@@ -13,4 +13,12 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'Cloud',
   },
+  create_folder_header: {
+    id: `${scope}.create_folder_header`,
+    defaultMessage: 'Add a folder',
+  },
+  folder_name: {
+    id: `${scope}.folder_name`,
+    defaultMessage: 'Name',
+  },
 });
