@@ -27,6 +27,11 @@ import {
   CHANGE_FOLDER_NAME,
   ADD_FOLDER_ERROR,
   ADD_FOLDER_SUCCESS,
+  CHANGE_CONFIG_NAME,
+  CHANGE_CONFIG_PATH,
+  GET_CONFIG_ERROR,
+  SET_CONFIG_ERROR,
+  GET_CONFIG_SUCCESS,
 } from './constants';
 import { modifyFiles } from './utils';
 
@@ -44,14 +49,32 @@ export const initialState = {
   fileUid: '',
   fileName: '',
   fileProgress: {},
+  configName: '',
+  configPath: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const cloudReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case GET_CONFIG_ERROR:
+        draft.errorText = action.error;
+        break;
+      case GET_CONFIG_SUCCESS:
+        draft.configName = action.name;
+        draft.configPath = action.path;
+        break;
+      case SET_CONFIG_ERROR:
+        draft.errorText = action.error;
+        break;
       case CHANGE_FOLDER_NAME:
         draft.folderName = action.name;
+        break;
+      case CHANGE_CONFIG_NAME:
+        draft.configName = action.name;
+        break;
+      case CHANGE_CONFIG_PATH:
+        draft.configPath = action.path;
         break;
       case SET_UPLOAD_FILE:
         draft.fileProgress = {

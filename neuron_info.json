@@ -10,6 +10,12 @@
       "icon": "fa fa-cloud"
     },
     {
+      "url": "/cloud/config",
+      "name": "CloudConfig",
+      "raw": "cloud",
+      "icon": "fa fa-cloud"
+    },
+    {
       "url": "/cloud/:uid",
       "name": "Cloud",
       "raw": "cloud",

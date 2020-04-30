@@ -34,3 +34,13 @@ export const UPLOAD_FILE_SUCCESS = 'onyx/Cloud/UPLOAD_FILE_SUCCESS';
 export const UPLOAD_FILE_ERROR = 'onyx/Cloud/UPLOAD_FILE_ERROR';
 
 export const CHANGE_FOLDER_NAME = 'onyx/Cloud/CHANGE_FOLDER_NAME';
+export const CHANGE_CONFIG_NAME = 'onyx/Cloud/CHANGE_CONFIG_NAME';
+export const CHANGE_CONFIG_PATH = 'onyx/Cloud/CHANGE_CONFIG_PATH';
+
+export const SET_CONFIG = 'onyx/Cloud/SET_CONFIG';
+export const SET_CONFIG_SUCCESS = 'onyx/Cloud/SET_CONFIG_SUCCESS';
+export const SET_CONFIG_ERROR = 'onyx/Cloud/SET_CONFIG_ERROR';
+
+export const GET_CONFIG = 'onyx/Cloud/GET_CONFIG';
+export const GET_CONFIG_SUCCESS = 'onyx/Cloud/GET_CONFIG_SUCCESS';
+export const GET_CONFIG_ERROR = 'onyx/Cloud/GET_CONFIG_ERROR';

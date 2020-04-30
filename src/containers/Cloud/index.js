@@ -32,6 +32,7 @@ import {
   deleteFolder,
   changeFolderName,
   addFolder,
+  getConfig,
 } from './actions';
 
 import saga from './saga';
@@ -51,11 +52,16 @@ export function Cloud({
   deleteFolderFunc,
   onChangeFolderName,
   addFolderFunc,
+  getConfigFunc,
   match,
   history,
 }) {
   useInjectReducer({ key: 'cloud', reducer });
   useInjectSaga({ key: 'cloud', saga });
+
+  useEffect(() => {
+    getConfigFunc();
+  }, [0]);
 
   useEffect(() => {
     getFilesFunc(match.params.uid);
@@ -104,8 +110,8 @@ export function Cloud({
                   />
                 ) : (
                   <div>
+                  {cloud.currentFolder && cloud.configPath !== '' && (
                     <ul className="collection with-header">
-                      {cloud.currentFolder && (
                         <li class="collection-header">
                           <h4>{cloud.currentFolder.name}</h4>
                           <span
@@ -211,7 +217,7 @@ export function Cloud({
                             </div>
                           </Modal>
                         </li>
-                      )}
+
 
                       {cloud.folders.map(folder => (
                         <li
@@ -250,9 +256,17 @@ export function Cloud({
                         </li>
                       ))}
                     </ul>
+                    )}
 
                     {cloud.files.length === 0 && cloud.folders.length === 0 && (
-                      <h3 className="uk-card-title">Nothing Here</h3>
+                      <div>
+                        {cloud.configPath === '' ? (
+                          <button onClick={() => history.push('/cloud/config')} className={`btn ${user.color}`}>Config</button>
+                        ) : (
+                          <h3 className="uk-card-title">Nothing Here</h3>
+                        )}
+
+                      </div>
                     )}
                   </div>
                 )}
@@ -294,6 +308,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    getConfigFunc: () => {
+      dispatch(getConfig());
+    },
     getFilesFunc: uid => {
       dispatch(getFiles(uid));
     },

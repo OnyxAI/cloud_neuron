@@ -16,13 +16,20 @@ import {
   SYNC_FILES,
   DELETE_FILE,
   DELETE_FOLDER,
-  ADD_FOLDER
+  ADD_FOLDER,
+  SET_CONFIG,
+  GET_CONFIG,
 } from './constants';
 
 import {
   getFiles,
   getFilesSuccess,
   getFilesError,
+  getConfig,
+  getConfigError,
+  getConfigSuccess,
+  setConfigError,
+  setConfigSuccess,
   downloadFileError,
   downloadFileSuccess,
   syncFiles,
@@ -220,6 +227,59 @@ export function* loadAddFolder() {
   }
 }
 
+// Get Config
+export function* loadGetConfig() {
+  const token = localStorage.getItem('access_token');
+
+  try {
+    const result = yield call(request, {
+      method: 'GET',
+      url: `/api/neuron/cloud/config`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (result && result.status === 'success') {
+      yield put(
+        getConfigSuccess(result.config),
+      );
+    } else if (result && result.status === 'error') {
+      yield put(getConfigError(result.message));
+    } else {
+      yield put(getConfigError('onyx.global.error'));
+    }
+  } catch (error) {
+    yield put(getConfigError(error.toString()));
+  }
+}
+
+// Set Config
+export function* loadSetConfig() {
+  const token = localStorage.getItem('access_token');
+  const cloud = yield select(makeSelectCloud());
+
+  try {
+    const result = yield call(request, {
+      method: 'POST',
+      url: `/api/neuron/cloud/config`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: {
+        name: cloud.configName,
+        path: cloud.configPath,
+      },
+    });
+    if (result && result.status === 'success') {
+      yield put(setConfigSuccess());
+      yield put(syncFiles());
+      yield put(getConfig());
+    } else if (result && result.status === 'error') {
+      yield put(setConfigError(result.message));
+    } else {
+      yield put(setConfigError('onyx.global.error'));
+    }
+  } catch (error) {
+    yield put(setConfigError(error.toString()));
+  }
+}
+
 // Individual exports for testing
 export default function* cloudSaga() {
   yield takeLatest(SYNC_FILES, loadSyncFiles);
@@ -228,4 +288,6 @@ export default function* cloudSaga() {
   yield takeLatest(DELETE_FILE, loadDeleteFile);
   yield takeLatest(DELETE_FOLDER, loadDeleteFolder);
   yield takeLatest(ADD_FOLDER, loadAddFolder);
+  yield takeLatest(GET_CONFIG, loadGetConfig);
+  yield takeLatest(SET_CONFIG, loadSetConfig);
 }

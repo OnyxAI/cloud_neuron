@@ -110,6 +110,7 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: {
         Cloud: './index.js',
+        CloudConfig: './cloud_config.js',
         i18n: './src/i18n.js'
       },
       remotes: {

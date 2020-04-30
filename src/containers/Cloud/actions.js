@@ -28,6 +28,14 @@ import {
   ADD_FOLDER,
   ADD_FOLDER_SUCCESS,
   ADD_FOLDER_ERROR,
+  CHANGE_CONFIG_NAME,
+  CHANGE_CONFIG_PATH,
+  SET_CONFIG,
+  SET_CONFIG_ERROR,
+  SET_CONFIG_SUCCESS,
+  GET_CONFIG,
+  GET_CONFIG_ERROR,
+  GET_CONFIG_SUCCESS,
 } from './constants';
 
 export function changeFolderName(name) {
@@ -35,6 +43,24 @@ export function changeFolderName(name) {
     dispatch({
       type: CHANGE_FOLDER_NAME,
       name,
+    });
+  };
+}
+
+export function changeConfigName(name) {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_CONFIG_NAME,
+      name,
+    });
+  };
+}
+
+export function changeConfigPath(path) {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_CONFIG_PATH,
+      path,
     });
   };
 }
@@ -144,6 +170,46 @@ export function syncFilesSuccess() {
 export function syncFilesError(error) {
   return dispatch => {
     dispatch({ type: SYNC_FILES_ERROR, error });
+  };
+}
+
+export function getConfig() {
+  return {
+    type: GET_CONFIG,
+  };
+}
+
+export function getConfigSuccess(config) {
+  return dispatch => {
+    dispatch({
+      type: GET_CONFIG_SUCCESS,
+      name: config.name,
+      path: config.path,
+    });
+  };
+}
+
+export function getConfigError(error) {
+  return dispatch => {
+    dispatch({ type: GET_CONFIG_ERROR, error });
+  };
+}
+
+export function setConfig() {
+  return {
+    type: SET_CONFIG,
+  };
+}
+
+export function setConfigSuccess() {
+  return dispatch => {
+    dispatch({ type: SET_CONFIG_SUCCESS });
+  };
+}
+
+export function setConfigError(error) {
+  return dispatch => {
+    dispatch({ type: SET_CONFIG_ERROR, error });
   };
 }
 

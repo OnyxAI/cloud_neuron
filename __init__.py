@@ -1,5 +1,6 @@
 from onyx.brain.core import OnyxNeuron
 from neurons.cloud.api.sync import Sync, SyncApi
+from neurons.cloud.api.config import ConfigApi
 from neurons.cloud.api.folder import GetFolder, DeleteFolder, AddFolder
 from neurons.cloud.api.file import GetFile, UploadFile, DeleteFile
 from onyx.utils.log import getLogger
@@ -43,6 +44,10 @@ class CloudNeuron(OnyxNeuron):
             {
                 'route': '/neuron/cloud/folder/add',
                 'class': AddFolder
+            },
+            {
+                'route': '/neuron/cloud/config',
+                'class': ConfigApi
             }
         ]
         return api

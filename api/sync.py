@@ -7,13 +7,13 @@ from onyx.extensions import db
 from onyx.decorators import login_required
 from neurons.cloud.models.FolderModel import Folder as FolderModel
 from neurons.cloud.models.FileModel import File as FileModel
+from neurons.cloud.models.ConfigModel import ConfigModel
 from onyx.models import to_dict
 
 from onyx.utils.log import getLogger
 
-ROOT_FOLDER = "/home/aituglo/cloud"
+ROOT_FOLDER = "/media/cloud"
 log = getLogger('Cloud Sync')
-
 
 class Sync():
 
@@ -104,7 +104,12 @@ class SyncApi(Resource):
 
             db.session.commit()
 
-            self.sync.sync_folder(user['id'])
+            root = ConfigModel.query.filter_by(user=user['id']).first()
+
+            if root is None:
+                self.sync.sync_folder(user['id'])
+            else:
+                self.sync.sync_folder(user['id'], root.path)
 
             return jsonify(status="success")
         except Exception as e:
